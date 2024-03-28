@@ -1,27 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Cesi__Hero.Model;
+﻿using Cesi__Hero.Model;
 using Cesi__Hero.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cesi__Hero.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class HeroesController : ControllerBase
     {
-        private readonly IHeroServices _heroServices;
+        private readonly IHeroServices _heroService;
 
-        public ValuesController(IHeroServices heroServices)
+        public IHeroServices HeroService => _heroService;
+
+        public HeroesController(IHeroServices heroService)
         {
-            _heroServices = heroServices;
+            _heroService = heroService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Hero>> GetAllHeroes()
+        public async Task<ActionResult<IEnumerable<Hero>>> GetAllHeroes()
         {
-            var heroes = _heroServices.GetAllHero();
-            if (heroes == null)
+            var heroes = await _heroService.GetAllHero();
+            if (heroes.Count == 0)
             {
-                return NotFound("Heros non trouvés");
+                return NotFound("Aucun héros trouvé");
             }
             return Ok(heroes);
         }
@@ -29,33 +31,32 @@ namespace Cesi__Hero.Controllers
         [HttpGet("{id}")]
         public ActionResult<Hero> GetHero(int id)
         {
-            var hero = _heroServices.GetHero(id);
+            var hero = _heroService.GetHero(id);
             if (hero == null)
-                return NotFound("Hero non trouvé");
+                return NotFound("Héros non trouvé");
 
             return Ok(hero);
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<Hero>> AddHero([FromBody] Hero hero)
+        public async Task<ActionResult<IEnumerable<Hero>>> AddHero([FromBody] Hero hero)
         {
-            var heroes = _heroServices.AddHero(hero);
+            var heroes = await _heroService.AddHero(hero);
             return Ok(heroes);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<IEnumerable<Hero>> UpdateHero(int id, [FromBody] Hero hero)
+        public async Task<ActionResult<IEnumerable<Hero>>> UpdateHero(int id, [FromBody] Hero hero)
         {
-            var updatedHeroes = _heroServices.UpdateHero(id, hero);
+            List<Hero> updatedHeroes = await _heroService.UpdateHero(id, hero);
             return Ok(updatedHeroes);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<IEnumerable<Hero>> DeleteHero(int id)
+        public async Task<ActionResult<IEnumerable<Hero>>> DeleteHero(int id)
         {
-            var heroes = _heroServices.DeleteHero(id);
+            var heroes = await _heroService.DeleteHero(id);
             return Ok(heroes);
         }
     }
 }
-

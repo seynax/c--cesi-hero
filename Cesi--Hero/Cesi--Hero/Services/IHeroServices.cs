@@ -4,10 +4,10 @@ namespace Cesi__Hero.Services
 {
     public interface IHeroServices
     {
-        List<Hero> GetAllHero();
+        Task<List<Hero>> GetAllHero();
         Hero GetHero(int id);
-        List<Hero> AddHero(Hero hero);
-        List<Hero> UpdateHero(int id, Hero request);
-        List<Hero> DeleteHero(int id);
+        Task<List<Hero>> AddHero(Hero hero);
+        Task<List<Hero>> UpdateHero(int id, Hero request);
+        Task<List<Hero>> DeleteHero(int id);
     }
 }
