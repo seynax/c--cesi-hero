@@ -1,0 +1,6 @@
+@Cesi__Hero_HostAddress = http://localhost:5105
+
+GET {{Cesi__Hero_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
