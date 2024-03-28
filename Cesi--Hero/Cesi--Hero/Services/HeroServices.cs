@@ -1,36 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Cesi__Hero.Model;
 
 namespace Cesi__Hero.Services
 {
     public class HeroServices : IHeroServices
     {
-        private static IList<Hero> _heroes = new List<Hero>
-        {
-            new Hero(1, "Jacky", "Thuning"),
-            new Hero(2, "Null", "PasNull")
-        };
+        private static IList<Hero> _heroes = new List<Hero>();
 
-        public List<Hero> AddHero(Hero hero)
+        public Task<List<Hero>> AddHero(Hero hero)
         {
             _heroes.Add(hero);
-            return new List<Hero>(_heroes);
+            return Task.FromResult(_heroes.ToList());
         }
 
-        public List<Hero> DeleteHero(int id)
+        public Task<List<Hero>> DeleteHero(int id)
         {
             var heroToRemove = _heroes.FirstOrDefault(hero => hero.Id == id);
             if (heroToRemove != null)
                 _heroes.Remove(heroToRemove);
 
-            return new List<Hero>(_heroes);
+            return Task.FromResult(_heroes.ToList());
         }
 
-        public List<Hero> GetAllHero()
+        public Task<List<Hero>> GetAllHero()
         {
-            return new List<Hero>(_heroes);
+            return Task.FromResult(_heroes.ToList());
         }
 
         public Hero GetHero(int id)
@@ -38,18 +35,22 @@ namespace Cesi__Hero.Services
             return _heroes.FirstOrDefault(hero => hero.Id == id);
         }
 
-        public List<Hero> UpdateHero(int id, Hero request)
+        public Task<List<Hero>> UpdateHero(int id, Hero request)
         {
             var heroToUpdate = _heroes.FirstOrDefault(hero => hero.Id == id);
             if (heroToUpdate != null)
             {
                 heroToUpdate.Name = request.Name;
-                heroToUpdate.Superpower = request.Superpower;
+                heroToUpdate.School = request.School;
+                heroToUpdate.Powers.Clear();
+                foreach (var power in request.Powers)
+                {
+                    heroToUpdate.Powers.Add(power);
+                }
             }
 
-            return new List<Hero>(_heroes);
+            return Task.FromResult(_heroes.ToList());
         }
     }
 }
-
 

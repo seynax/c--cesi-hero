@@ -1,15 +1,20 @@
-﻿namespace Cesi__Hero.Model
+﻿using System.Collections.Generic; 
+
+namespace Cesi__Hero.Model
 {
     public class Hero
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Superpower { get; set; }
-        public Hero(int id, string name, string superpower)
+        public IList<Power> Powers { get; set; }
+        public School School { get; set; }
+
+        public Hero(int id, string name, School school)
         {
             Id = id;
             Name = name;
-            Superpower = superpower;
+            School = school;
+            Powers = new List<Power>(); 
         }
     }
 }
