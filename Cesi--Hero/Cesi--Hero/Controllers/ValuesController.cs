@@ -51,9 +51,9 @@ namespace Cesi__Hero.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<IEnumerable<Hero>> DeleteHero(int id)
+        public async Task<ActionResult<IEnumerable<Hero>>> DeleteHero(int id)
         {
-            var heroes = _heroServices.DeleteHero(id);
+            var heroes = await _heroService.DeleteHero(id);
             return Ok(heroes);
         }
     }
