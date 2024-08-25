@@ -6,12 +6,15 @@ namespace Cesi__Hero.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IList<Hero> Heroes { get; set; }
+        public string Location { get; set; }
 
-        public School(int id, string name)
+        // Navigation property for one-to-many relationship
+        public ICollection<Hero> Heroes { get; set; }
+        public School(int id, string name, string location)
         {
             Id = id;
             Name = name;
+            Location = location;
             Heroes = new List<Hero>(); 
         }
     }

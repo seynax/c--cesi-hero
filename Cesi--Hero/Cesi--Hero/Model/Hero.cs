@@ -6,8 +6,11 @@ namespace Cesi__Hero.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IList<Power> Powers { get; set; }
-        public School School { get; set; }
+        public int SchoolId { get; set; } // Foreign key for School
+        public School School { get; set; } // Navigation property
+
+        // Navigation property for many-to-many relationship
+        public ICollection<Power> Powers { get; set; }
 
         public Hero(int id, string name, School school)
         {
