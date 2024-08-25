@@ -17,7 +17,7 @@ namespace Cesi__Hero.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source=L35301222-10\\MSSQLSERVER01;Integrated Security=True;Encrypt=False");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSqlLocalDB;Integrated Security=True;Encrypt=False");
         }
 
         // Fluent API Config
