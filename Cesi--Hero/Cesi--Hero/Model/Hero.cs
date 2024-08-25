@@ -10,7 +10,11 @@ namespace Cesi__Hero.Model
         public School School { get; set; } // Navigation property
 
         // Navigation property for many-to-many relationship
+        
         public ICollection<Power> Powers { get; set; }
+        public Hero()
+        {
+        }
 
         public Hero(int id, string name, School school)
         {
